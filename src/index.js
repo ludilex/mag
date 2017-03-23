@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './containers/App';
 import './index.css';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -8,14 +8,11 @@ import reducer from './reducers/index'
 
 
 const initialState = {
-  operacionesReducer: {
-    valor: 0
-  },
+  operacionesReducer: {valor: 0},
   loginReducer: {
     loginData: {},
     isLogged: false
   }
-
 }
 
 
