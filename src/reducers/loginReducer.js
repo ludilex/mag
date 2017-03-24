@@ -4,6 +4,8 @@ export default function loginReducer(state = {}, action) {
     case 'HAS_LOGGED':
       return Object.assign({}, state, {
         loginData: action.payload,
+        profile: action.payload.profileObj,
+        accessToken: action.payload.accessToken,
         isLogged: true
       })
     default:

@@ -11,6 +11,8 @@ const initialState = {
   operacionesReducer: {valor: 0},
   loginReducer: {
     loginData: {},
+    profile: {},
+    accessToken: {},
     isLogged: false
   }
 }

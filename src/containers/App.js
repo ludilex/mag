@@ -6,14 +6,17 @@ import {bindActionCreators} from 'redux'
 import {sumaValor, restaValor, hasLogged} from '../actions/index'
 import GoogleLogin from 'react-google-login'
 
+/* Components */
+import Profile from '../components/Profile'
+
 
 class App extends React.Component {
 
   componentDidMount() {
+
   }
 
   _success(response) {
-    console.log(response)
     return () => this.props.hasLogged(response)
   }
 
@@ -22,6 +25,7 @@ class App extends React.Component {
   }
 
   render() {
+
     return (
       <div className="App">
         <div className="App-header">
@@ -47,6 +51,9 @@ class App extends React.Component {
           onSuccess={(response) => this.props.hasLogged(response)}
           onFailure={this._error}
         />
+        <Profile photo={this.props.profile.imageUrl} name={this.props.profile.name} email={this.props.profile.email}/>
+
+
       </div>
     );
   }
@@ -56,7 +63,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     valor: state.operacionesReducer.valor,
-    loginData: state.loginReducer.loginData
+    profile: state.loginReducer.profile
   }
 }
 
