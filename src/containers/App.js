@@ -1,13 +1,16 @@
 import React from 'react';
-import logo from '../logo.svg';
-import '../App.css';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {sumaValor, restaValor, hasLogged} from '../actions/index'
+import {sumaValor, restaValor, hasLogged, gotAccessToken} from '../actions/index'
 import GoogleLogin from 'react-google-login'
 
 /* Components */
+import Layout from '../components/Layout'
 import Profile from '../components/Profile'
+
+
+/* Containers */
+import CoursesContainer from './CoursesContainer'
 
 
 class App extends React.Component {
@@ -16,46 +19,48 @@ class App extends React.Component {
 
   }
 
-  _success(response) {
-    return () => this.props.hasLogged(response)
-  }
-
   _error(response) {
 
   }
 
   render() {
+    
+    if(this.props.isLogged) {
+      return(
+        <Layout>
+          <div>
+            <Profile photo={this.props.profile.imageUrl} name={this.props.profile.name} email={this.props.profile.email}/>
+            <CoursesContainer />
+          </div>
+        </Layout>
 
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <h2>{this.props.valor}</h2>
-        <button onClick={() => this.props.sumaValor(1)}>Suma</button>
-        <button onClick={() => this.props.restaValor(1)}>Resta</button>
-        <hr/>
-        <GoogleLogin
-          clientId="760049322440-1j3bnm8474e8rqn37isbsp3mpohdvj8j.apps.googleusercontent.com"
-          buttonText="Login with your Google Account"
-          scope="
-                https://www.googleapis.com/auth/classroom.profile.photos
-                https://www.googleapis.com/auth/classroom.profile.emails
-                https://www.googleapis.com/auth/classroom.courses.readonly
-                https://www.googleapis.com/auth/classroom.coursework.me.readonly
-                "
-          onSuccess={(response) => this.props.hasLogged(response)}
-          onFailure={this._error}
-        />
-        <Profile photo={this.props.profile.imageUrl} name={this.props.profile.name} email={this.props.profile.email}/>
+      )
+    } else {
+        return (
+          <Layout>
+            <div>
+              <h2>{this.props.valor}</h2>
+              <button onClick={() => this.props.sumaValor(1)}>Suma</button>
+              <button onClick={() => this.props.restaValor(1)}>Resta</button>
+              <hr/>
+              <GoogleLogin
+                clientId="760049322440-1j3bnm8474e8rqn37isbsp3mpohdvj8j.apps.googleusercontent.com"
+                buttonText="Login with your Google Account"
+                scope="
+                      https://www.googleapis.com/auth/classroom.profile.photos
+                      https://www.googleapis.com/auth/classroom.profile.emails
+                      https://www.googleapis.com/auth/classroom.courses.readonly
+                      https://www.googleapis.com/auth/classroom.coursework.me.readonly
+                      "
+                onSuccess={(response) => this.props.hasLogged(response)}
+                onFailure={this._error}
+              />
+            </div>
+          </Layout>
 
+      )
+    }
 
-      </div>
-    );
   }
 }
 
@@ -63,7 +68,10 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     valor: state.operacionesReducer.valor,
-    profile: state.loginReducer.profile
+    profile: state.loginReducer.profile,
+    isLogged: state.loginReducer.isLogged,
+    accessToken: state.loginReducer.accessToken,
+    coursesList: state.classroomReducer.coursesList
   }
 }
 
@@ -72,7 +80,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     sumaValor: sumaValor,
     restaValor: restaValor,
-    hasLogged: hasLogged
+    hasLogged: hasLogged,
+    gotAccessToken: gotAccessToken
   }, dispatch)
 }
 
