@@ -1,11 +1,13 @@
-export default function operacionesReducer(state = 0, action) {
+import { SUMA_VALOR, RESTA_VALOR } from '../actions/index'
+
+export default function operacionesReducer(state = {}, action) {
 
   switch (action.type) {
-    case 'SUMA':
+    case SUMA_VALOR:
         return Object.assign({}, state, {
            valor: state.valor + action.payload
       })
-    case 'RESTA':
+    case RESTA_VALOR:
         return Object.assign({}, state, {
            valor: state.valor - action.payload
     })
