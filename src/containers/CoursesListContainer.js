@@ -4,26 +4,31 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { AxiosProvider, Get } from 'react-axios'
 import { apiSuccesfulResponse } from '../actions/index'
+
 import CoursesList from '../components/CoursesList'
+//import CourseThumbnail from '../components/CourseThumbnail'
+//import { Row } from 'react-bootstrap';
 
-const axiosInstance = axios.create({
-  baseURL: 'https://classroom.googleapis.com',
-  timeout: 2000
-  //headers: { 'Authorization': 'Bearer ya29.GlwYBKIOSFLJIsJWS91mLl4cLrsFt81CFlHpid1ChDQWJ7idm6lWjt17Bd-LxgBTMym38ExMK6gscKrJvXrUXbS9-vFHOCO3CCwMGzpMq6kasQBojNUos3TAcvSemQ' }
-})
 
-class CoursesContainer extends React.Component {
+
+
+
+class CoursesListContainer extends React.Component {
 
   render() {
 
     var courses = {} //var to save courses from response
     //console.log(this.props.isLogged);
+    const axiosInstance = axios.create({
+      baseURL: 'https://classroom.googleapis.com',
+      timeout: 2000,
+      headers: { 'Authorization': 'Bearer ' + this.props.accessToken } //accessToken retrieved from OAuth
+    })
 
-
-    if(this.props.isLogged) {
+    if(this.props.isLogged && !this.props.hasCourses) {
       return(
         <AxiosProvider instance={axiosInstance}>
-          <Get url={"/v1/courses/?access_token=" + this.props.accessToken} onSuccess={() => this.props.succesfulResponse(courses)}>
+          <Get url={"/v1/courses/"} onSuccess={() => this.props.succesfulResponse(courses)}>
              {(error, response, isLoading) => {
                if(error) {
                  return (<div>Something bad happened: {error.message}</div>)
@@ -32,30 +37,27 @@ class CoursesContainer extends React.Component {
                  return (<div>Loading...</div>)
                }
                else if(response !== null) {
-                 //this._handleResponse(response.data)
-                 courses = response.data
-
-                 return (
-                   <div>
-                     {JSON.stringify(courses)}
-                     <CoursesList />
-                   </div>
-
-                 )
+                 courses = response.data.courses //Save in global variable
+                 //return <CoursesList courses={courses} />
                }
                return (<div>Default message before request is made.</div>)
              }}
            </Get>
          </AxiosProvider>
        )
+    }else if (this.props.hasCourses) {
+      return(<CoursesList courses={this.props.coursesList} />)
+    }else {
+      return (<div>No logged</div>)
     }
-    return (<div>No logged</div>)
+
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     coursesList: state.classroomReducer.coursesList,
+    hasCourses: state.classroomReducer.hasCourses,
     isLogged: state.loginReducer.isLogged,
     accessToken: state.loginReducer.accessToken
   }
@@ -67,4 +69,4 @@ const mapDispatchToProps = (dispatch) => {
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesListContainer);
