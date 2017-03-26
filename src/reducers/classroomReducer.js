@@ -6,6 +6,14 @@ export default function classroomReducer(state={}, action) {
         coursesList: action.payload,
         hasCourses: true
       })
+    case 'COURSEWORKS_RETRIEVED':
+      return Object.assign({}, state, {
+        courseWorksList: action.payload
+      })
+    case 'COURSE_SELECTED':
+      return Object.assign({}, state, {
+        currentCourseSelected: action.payload
+      })
     default:
       return state
   }
