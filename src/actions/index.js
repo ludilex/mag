@@ -5,6 +5,7 @@ export const COURSES_RETRIEVED = 'COURSES_RETRIEVED'
 export const COURSEWORKS_RETRIEVED = 'COURSEWORKS_RETRIEVED'
 export const SUBMISSIONS_RETRIEVED = 'SUBMISSIONS_RETRIEVED'
 export const HAS_COURSEWORKS = 'HAS_COURSEWORKS'
+export const GLOBAL_POINTS_CALCULATED = 'GLOBAL_POINTS_CALCULATED'
 
 
 export const hasLogged = (response) => {
@@ -39,5 +40,12 @@ export const submissionsRetrieved = (response) => {
   return {
     type: SUBMISSIONS_RETRIEVED,
     payload: response
+  }
+}
+
+export const globalPointsCalculated = (points) => {
+  return {
+    type: GLOBAL_POINTS_CALCULATED,
+    payload: points
   }
 }

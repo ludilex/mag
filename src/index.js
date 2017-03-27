@@ -21,6 +21,12 @@ const initialState = {
     currentCourseSelected: "",
     courseWorksList: [],
     studentSubmissions: []
+  },
+  gamificationReducer: {
+    currentLevel: 0,
+    globalPoints: 0,
+    coursePoints: [],
+    badgesEarned: []
   }
 }
 

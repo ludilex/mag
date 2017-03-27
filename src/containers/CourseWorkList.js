@@ -17,8 +17,7 @@ class CourseWorkList extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-
+    
     if(this.props.hasCourseWorks) {
       return(
         <div>{this.props.courseWorksList.map(this.renderCourseWork)}</div>

@@ -13,14 +13,17 @@ import {hasLogged, gotAccessToken} from '../actions/index'
 import CoursesListContainer from './CoursesListContainer'
 import GoogleLogin from './GoogleLoginContainer'
 import CourseWorkList from '../containers/CourseWorkList'
+import GamificationEngine from '../containers/GamificationEngine'
 
 
 class App extends React.Component {
+
 
   render() {
 
     if(this.props.isLogged) {
       return(
+
         <Grid>
           <Row>
             <div><h1>Header</h1></div>
@@ -48,7 +51,7 @@ const mapStateToProps = (state) => {
   return {
     profile: state.loginReducer.profile,
     isLogged: state.loginReducer.isLogged,
-    accessToken: state.loginReducer.accessToken    
+    accessToken: state.loginReducer.accessToken
   }
 }
 
