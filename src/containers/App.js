@@ -16,7 +16,7 @@ import CourseWorkList from '../containers/CourseWorkList'
 
 
 class App extends React.Component {
-  
+
   render() {
 
     if(this.props.isLogged) {
@@ -48,7 +48,7 @@ const mapStateToProps = (state) => {
   return {
     profile: state.loginReducer.profile,
     isLogged: state.loginReducer.isLogged,
-    accessToken: state.loginReducer.accessToken
+    accessToken: state.loginReducer.accessToken    
   }
 }
 

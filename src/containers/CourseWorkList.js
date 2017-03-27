@@ -6,17 +6,19 @@ import CourseWork from '../components/CourseWork'
 
 
 
+
 class CourseWorkList extends React.Component {
 
   renderCourseWork(courseWork) {
-    console.log(courseWork);
-    if(courseWork != null) {
+
+    if(courseWork != null) { //avoid iteration if the course doesn't have courseWorks
       return <CourseWork key={courseWork.id} courseWork={courseWork} />
     }
   }
 
   render() {
     console.log(this.props);
+
     if(this.props.hasCourseWorks) {
       return(
         <div>{this.props.courseWorksList.map(this.renderCourseWork)}</div>
@@ -28,10 +30,11 @@ class CourseWorkList extends React.Component {
 
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     hasCourseWorks: state.classroomReducer.hasCourseWorks,
-    courseWorksList: state.classroomReducer.courseWorksList
+    courseWorksList: state.classroomReducer.courseWorksList,
+    currentCourseSelected: state.classroomReducer.currentCourseSelected
   }
 }
 

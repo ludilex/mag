@@ -1,11 +1,12 @@
 import React from 'react'
 import { Panel, Col, Grid, Label, Button } from 'react-bootstrap';
 import Badge from './Badge'
+import SubmissionsContainer from '../containers/SubmissionsContainer'
 
 
 class CourseWork extends React.Component {
   render() {
-    console.log(this.props);
+
     return(
 
       <Panel header={this.props.courseWork.workType}>
@@ -13,6 +14,9 @@ class CourseWork extends React.Component {
           <Col xs={12} md={2}>
             <Badge />
             <h5>Points to get: <Label>{this.props.courseWork.maxPoints}</Label></h5>
+            <SubmissionsContainer
+              courseId={this.props.courseWork.courseId}
+              courseWorkId={this.props.courseWork.id} />
           </Col>
           <Col xs={12} md={4}>
             <h5>Your mision: {this.props.courseWork.title}</h5>

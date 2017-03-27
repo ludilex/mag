@@ -12,6 +12,10 @@ export default function classroomReducer(state={}, action) {
         courseWorksList: state.courseWorksList.concat(action.payload)
       }, {hasCourseWorks: true})
 
+    case 'SUBMISSIONS_RETRIEVED':
+      return Object.assign({}, state, {
+        studentSubmissions: state.studentSubmissions.concat(action.payload)
+      })
 
     case 'HAS_COURSEWORKS':
       return Object.assign({}, state, {

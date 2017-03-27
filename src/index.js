@@ -19,7 +19,8 @@ const initialState = {
     coursesList: {},
     hasCourseWorks: false,
     currentCourseSelected: "",
-    courseWorksList: []
+    courseWorksList: [],
+    studentSubmissions: []
   }
 }
 

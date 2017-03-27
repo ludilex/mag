@@ -3,6 +3,7 @@ export const GOT_ACCESS_TOKEN = 'GOT_ACCESS_TOKEN'
 export const COURSE_SELECTED = 'COURSE_SELECTED'
 export const COURSES_RETRIEVED = 'COURSES_RETRIEVED'
 export const COURSEWORKS_RETRIEVED = 'COURSEWORKS_RETRIEVED'
+export const SUBMISSIONS_RETRIEVED = 'SUBMISSIONS_RETRIEVED'
 export const HAS_COURSEWORKS = 'HAS_COURSEWORKS'
 
 
@@ -30,6 +31,13 @@ export const courseSelected = (courseId) => {
 export const courseworksRetrieved = (response) => {
   return {
     type: COURSEWORKS_RETRIEVED,
+    payload: response
+  }
+}
+
+export const submissionsRetrieved = (response) => {
+  return {
+    type: SUBMISSIONS_RETRIEVED,
     payload: response
   }
 }
