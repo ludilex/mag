@@ -3,7 +3,7 @@ import axios from 'axios'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { AxiosProvider, Get } from 'react-axios'
-import { apiSuccesfulResponse } from '../actions/index'
+import { coursesRetrieved, courseSelected, hasCourses } from '../actions/index'
 
 import CoursesList from '../components/CoursesList'
 //import CourseThumbnail from '../components/CourseThumbnail'
@@ -19,7 +19,7 @@ class CoursesListContainer extends React.Component {
   render() {
 
     var courses = {} //var to save courses from response
-    //console.log(this.props.isLogged);
+
     const axiosInstance = axios.create({
       baseURL: 'https://classroom.googleapis.com',
       timeout: 2000,
@@ -29,16 +29,19 @@ class CoursesListContainer extends React.Component {
     if(this.props.isLogged && !this.props.hasCourses) {
       return(
         <AxiosProvider instance={axiosInstance}>
-          <Get url={"/v1/courses/"} onSuccess={() => this.props.succesfulResponse(courses)}>
+          <Get
+            url={"/v1/courses/"}
+            onSuccess={ () => {this.props.coursesRetrieved(courses)} }>
+
              {(error, response, isLoading) => {
                if(error) {
                  return (<div>Something bad happened: {error.message}</div>)
                }
                else if(isLoading) {
-                 return (<div>Loading...</div>)
+                 return (<div>Loading courses...</div>)
                }
                else if(response !== null) {
-                 
+
                  courses = response.data.courses //Save in global variable
                  //return <CoursesList courses={courses} />
                }
@@ -59,15 +62,17 @@ class CoursesListContainer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     coursesList: state.classroomReducer.coursesList,
-    hasCourses: state.classroomReducer.hasCourses,
     isLogged: state.loginReducer.isLogged,
+    hasCourses: state.classroomReducer.hasCourses,
     accessToken: state.loginReducer.accessToken
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    succesfulResponse: apiSuccesfulResponse
+    coursesRetrieved: coursesRetrieved,
+    hasCourses: hasCourses,
+    courseSelected: courseSelected
   }, dispatch)
 }
 

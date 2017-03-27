@@ -5,7 +5,6 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 /* Components */
 import Profile from '../components/Profile'
-import SkillTree from '../components/SkillTree'
 
 /* Actions */
 import {hasLogged, gotAccessToken} from '../actions/index'
@@ -13,13 +12,11 @@ import {hasLogged, gotAccessToken} from '../actions/index'
 /* Containers */
 import CoursesListContainer from './CoursesListContainer'
 import GoogleLogin from './GoogleLoginContainer'
+import CourseWorkList from '../containers/CourseWorkList'
 
 
 class App extends React.Component {
-  componentDidMount(){
-    console.log("App mounted");
-  }
-
+  
   render() {
 
     if(this.props.isLogged) {
@@ -33,7 +30,7 @@ class App extends React.Component {
             <CoursesListContainer />
           </Col>
           <Col xs={12} md={9}>
-            <Row><SkillTree /></Row>
+            <CourseWorkList />
           </Col>
         </Grid>
       )

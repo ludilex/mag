@@ -17,8 +17,9 @@ const initialState = {
   classroomReducer: {
     hasCourses: false,
     coursesList: {},
+    hasCourseWorks: false,
     currentCourseSelected: "",
-    courseWorksList: {}
+    courseWorksList: []
   }
 }
 

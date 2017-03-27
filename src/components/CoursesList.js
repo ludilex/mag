@@ -1,6 +1,6 @@
 import React from 'react'
 import CourseThumbnail from './CourseThumbnail'
-import { Panel, Col, Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 
 
 class CoursesList extends React.Component {

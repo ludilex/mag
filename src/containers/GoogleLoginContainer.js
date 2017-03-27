@@ -12,13 +12,6 @@ class GoogleLoginContainer extends React.Component {
     return <div>Unsuccesful login</div>
   }
 
-  componentWillMount() {
-    //console.log("Login will mounted");
-  }
-  componentWillUnmount(){
-    console.log("Login unmounted");
-  }
-
   render(){
 
     return(

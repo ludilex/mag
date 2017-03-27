@@ -1,8 +1,9 @@
 export const HAS_LOGGED = 'HAS_LOGGED'
 export const GOT_ACCESS_TOKEN = 'GOT_ACCESS_TOKEN'
-export const API_SUCCESFUL_RESPONSE = 'API_SUCCESFUL_RESPONSE'
 export const COURSE_SELECTED = 'COURSE_SELECTED'
+export const COURSES_RETRIEVED = 'COURSES_RETRIEVED'
 export const COURSEWORKS_RETRIEVED = 'COURSEWORKS_RETRIEVED'
+export const HAS_COURSEWORKS = 'HAS_COURSEWORKS'
 
 
 export const hasLogged = (response) => {
@@ -12,9 +13,9 @@ export const hasLogged = (response) => {
   }
 }
 
-export const apiSuccesfulResponse = (response) => {
+export const coursesRetrieved = (response) => {
   return {
-    type: API_SUCCESFUL_RESPONSE,
+    type: COURSES_RETRIEVED,
     payload: response
   }
 }
