@@ -8,7 +8,6 @@ import reducer from './reducers/index'
 
 
 const initialState = {
-  operacionesReducer: {valor: 0},
   loginReducer: {
     loginData: {},
     profile: {},
@@ -16,6 +15,7 @@ const initialState = {
     isLogged: false
   },
   classroomReducer: {
+    hasCourses: false,
     coursesList: {},
     courseWorkList: {}
   }
