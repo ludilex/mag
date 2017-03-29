@@ -3,10 +3,11 @@ import axios from 'axios'
 import { AxiosProvider, Get } from 'react-axios'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import { submissionsRetrieved } from '../actions/index'
+import { submissionsRetrieved } from '../actions/actionCreators'
+import SubmissionDetails from '../components/SubmissionDetails'
 
 
-class SubmissionsContainer extends React.Component {
+class SubmissionsDetailsContainer extends React.Component {
   render() {
     var submissions = {}
     const axiosInstance = axios.create({
@@ -29,7 +30,7 @@ class SubmissionsContainer extends React.Component {
              }
              else if(response !== null) {
                submissions = response.data.studentSubmissions //Save in global variable
-               return <div>Submissions retrieved!</div>
+               return <div><SubmissionDetails submissions={submissions}/></div>
              }
              return (<div>Default message before request is made.</div>)
            }}
@@ -51,4 +52,4 @@ const mapDispatchToProps = (dispatch) => {
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubmissionsContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(SubmissionsDetailsContainer)

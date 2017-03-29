@@ -1,8 +1,6 @@
 import React from 'react'
-import { Panel, Image, Row, ProgressBar, Label } from 'react-bootstrap';
+import { Panel, Image, Row, Label } from 'react-bootstrap';
 import PointsContainer from '../containers/PointsContainer'
-
-
 
 class Profile extends React.Component {
 

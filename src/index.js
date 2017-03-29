@@ -2,35 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './containers/App';
 import './index.css';
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import reducer from './reducers/index'
-
-
-const initialState = {
-  loginReducer: {
-    loginData: {},
-    profile: {},
-    accessToken: {},
-    isLogged: false
-  },
-  classroomReducer: {
-    hasCourses: false,
-    coursesList: {},
-    hasCourseWorks: false,
-    currentCourseSelected: "",
-    courseWorksList: [],
-    studentSubmissions: []
-  },
-  gamificationReducer: {
-    currentLevel: 0,
-    globalPoints: 0,
-    coursePoints: [],
-    badgesEarned: []
-  }
-}
-
-const store = createStore(reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+import store from './store'
 
 ReactDOM.render(
   <Provider store={store}>

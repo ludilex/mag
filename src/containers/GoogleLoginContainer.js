@@ -2,9 +2,8 @@ import React from 'react'
 import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { hasLogged } from '../actions/index'
+import { hasLogged } from '../actions/actionCreators'
 import { Button } from 'react-bootstrap';
-
 
 class GoogleLoginContainer extends React.Component {
 

@@ -7,17 +7,15 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import Profile from '../components/Profile'
 
 /* Actions */
-import {hasLogged, gotAccessToken} from '../actions/index'
+import { hasLogged, gotAccessToken } from '../actions/actionCreators'
 
 /* Containers */
 import CoursesListContainer from './CoursesListContainer'
 import GoogleLogin from './GoogleLoginContainer'
 import CourseWorkList from '../containers/CourseWorkList'
-import GamificationEngine from '../containers/GamificationEngine'
-
+//import GamificationEngine from '../containers/GamificationEngine'
 
 class App extends React.Component {
-
 
   render() {
 

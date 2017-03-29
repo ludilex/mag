@@ -3,7 +3,7 @@ import axios from 'axios'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { AxiosProvider, Get } from 'react-axios'
-import { courseworksRetrieved, courseSelected } from '../actions/index'
+import { courseworksRetrieved, courseSelected } from '../actions/actionCreators'
 
 
 //import CourseThumbnail from '../components/CourseThumbnail'

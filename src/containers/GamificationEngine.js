@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { globalPointsCalculated } from '../actions/index'
+import { globalPointsCalculated } from '../actions/actionCreators'
 
 
 class GamificationEngine extends React.Component {
