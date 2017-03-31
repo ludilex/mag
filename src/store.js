@@ -5,18 +5,18 @@ import ReduxThunk from 'redux-thunk'
 
 const initialState = {
   loginReducer: {
-    loginData: {},
     profile: {},
     accessToken: {},
     isLogged: false
   },
   classroomReducer: {
     hasCourses: false,
-    coursesList: {},
+    coursesList: [],
+    currentCourseSelected: "all",
     hasCourseWorks: false,
-    currentCourseSelected: "",
     courseWorksList: [],
-    studentSubmissions: []
+    hasSubmissions: false,
+    studentSubmissions: [],
   },
   gamificationReducer: {
     currentLevel: 0,
@@ -34,5 +34,4 @@ export default
   createStore(
     reducer,
     initialState,
-    composeEnhancers(applyMiddleware(classroomDataMiddleware, ReduxThunk))
-  )
+    composeEnhancers(applyMiddleware(classroomDataMiddleware, ReduxThunk)))

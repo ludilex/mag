@@ -10,34 +10,38 @@ import Profile from '../components/Profile'
 import { hasLogged, gotAccessToken } from '../actions/actionCreators'
 
 /* Containers */
-import CoursesListContainer from './CoursesListContainer'
-import GoogleLogin from './GoogleLoginContainer'
+import CoursesList from './CoursesList'
+import LoginButton from './LoginButton'
 import CourseWorkList from '../containers/CourseWorkList'
-//import GamificationEngine from '../containers/GamificationEngine'
 
 class App extends React.Component {
-
+  shouldComponentUpdate(){
+    return true
+  }
   render() {
-
     if(this.props.isLogged) {
       return(
+        <div>
+          <Grid>
+            <Row>
+              <div><h2>Magelungen spel</h2></div>
+            </Row>
+          </Grid>
+          <Grid>
+            <Col xs={12} md={3}>
+              <Profile profileData={this.props.profile} />
+              <CoursesList />
+            </Col>
+            <Col xs={12} md={9}>
+              <CourseWorkList />
+            </Col>
+          </Grid>
+        </div>
 
-        <Grid>
-          <Row>
-            <div><h1>Header</h1></div>
-          </Row>
-          <Col xs={12} md={3}>
-            <Profile profileData={this.props.profile} />
-            <CoursesListContainer />
-          </Col>
-          <Col xs={12} md={9}>
-            <CourseWorkList />
-          </Col>
-        </Grid>
       )
     } else {
         return (
-          <GoogleLogin />
+          <LoginButton />
         )
     }
 
@@ -49,6 +53,7 @@ const mapStateToProps = (state) => {
   return {
     profile: state.loginReducer.profile,
     isLogged: state.loginReducer.isLogged,
+    hasCourses: state.classroomReducer.hasCourses,
     accessToken: state.loginReducer.accessToken
   }
 }

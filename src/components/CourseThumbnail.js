@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Button, Panel } from 'react-bootstrap';
-import CourseWorksContainer from '../containers/CourseWorksContainer'
+import CourseWorksContainer from '../containers/CourseWorksFilter'
 
 
 

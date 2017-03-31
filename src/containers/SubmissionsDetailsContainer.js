@@ -30,7 +30,9 @@ class SubmissionsDetailsContainer extends React.Component {
              }
              else if(response !== null) {
                submissions = response.data.studentSubmissions //Save in global variable
+
                return <div><SubmissionDetails submissions={submissions}/></div>
+
              }
              return (<div>Default message before request is made.</div>)
            }}

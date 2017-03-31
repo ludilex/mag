@@ -2,13 +2,17 @@ import React from 'react'
 import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { hasLogged } from '../actions/actionCreators'
+import { accessGranted, isLogged } from '../actions/actionCreators'
 import { Button } from 'react-bootstrap';
 
-class GoogleLoginContainer extends React.Component {
+class LoginButton extends React.Component {
 
   _error(response) {
     return <div>Unsuccesful login</div>
+  }
+  
+  componentWillUnmount(){
+    this.props.isLogged(true)
   }
 
   render(){
@@ -24,7 +28,7 @@ class GoogleLoginContainer extends React.Component {
               "
         tag="text"
         style={{ color: 'blue' }}
-        onSuccess={(response) => this.props.hasLogged(response)}
+        onSuccess={(response) => this.props.accessGranted(response)}
         onFailure={this._error}>
         <Button bsStyle="primary">Login with Google</Button>
       </GoogleLogin>
@@ -35,8 +39,9 @@ class GoogleLoginContainer extends React.Component {
 //Tells which actions would be dispatched in this component
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    hasLogged: hasLogged
+    accessGranted: accessGranted,
+    isLogged: isLogged
   }, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(GoogleLoginContainer);
+export default connect(null, mapDispatchToProps)(LoginButton);

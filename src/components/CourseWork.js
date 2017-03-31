@@ -24,7 +24,6 @@ class CourseWork extends React.Component {
         <Grid>
           <Col xs={12} md={2}>
             <Badge />
-
             <SubmissionsDetailsContainer
               courseId={this.props.courseWork.courseId}
               courseWorkId={this.props.courseWork.id}
