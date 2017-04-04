@@ -2,7 +2,7 @@ import React from 'react'
 import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { accessGranted, loginDataSaved } from '../actions/actionCreators'
+import { accessGranted, loginDataSaved, resetSubmissions, resetPoints } from '../actions/actionCreators'
 import { Button } from 'react-bootstrap';
 
 class LoginButton extends React.Component {
@@ -16,6 +16,8 @@ class LoginButton extends React.Component {
   }
 
   componentWillUnmount(){
+    this.props.resetSubmissions()
+    this.props.resetPoints()
     this.props.accessGranted()
   }
 
@@ -44,7 +46,10 @@ class LoginButton extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     loginDataSaved: loginDataSaved,
-    accessGranted: accessGranted
+    accessGranted: accessGranted,
+    resetSubmissions: resetSubmissions,
+    resetPoints: resetPoints
+
   }, dispatch)
 }
 

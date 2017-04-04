@@ -18,8 +18,8 @@ class CourseThumbnail extends React.Component {
           <Row>{this.props.course.section}</Row>
           <Row>{this.props.course.descriptionHeading}</Row>
           <h3><Label><PointsContainer pointsType="global" /></Label> points</h3>
-          <Row><CourseWorksFilter courseId={this.props.course.id}/></Row>
           <Row><h5>Course Progress:</h5><CourseProgress /></Row>
+          <Row><CourseWorksFilter courseId={this.props.course.id}/></Row>
           {/*<Row><a href={this.props.course.alternateLink} target="_blank"><Button bsStyle="success">Go to the course</Button></a></Row>*/}
       </Panel>
 

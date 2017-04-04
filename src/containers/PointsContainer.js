@@ -11,9 +11,17 @@ import Points from '../components/Points'
 class PointsContainer extends React.Component {
 
   componentWillMount() {
+    var points = 0
+    const grades = this.props.studentSubmissions.filter((submission) => {
+      return submission.assignedGrade !== undefined
+    });
+    grades.map(grade => {
+      return points += grade.assignedGrade
+    })
+    this.props.globalPointsCalculated(points)
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     if(this.props.hasSubmissions) {
       var points = 0
         this.props.studentSubmissions.map((submission) => {

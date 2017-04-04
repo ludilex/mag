@@ -8,7 +8,7 @@ class CourseWorksFilter extends React.Component {
 
   render() {
       return(
-         <button onClick={() => this.props.courseSelected(this.props.courseId)}>Load course this works</button>
+         <button onClick={() => this.props.courseSelected(this.props.courseId)}>Load course works</button>
        )
   }
 }
