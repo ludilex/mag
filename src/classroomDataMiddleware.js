@@ -69,6 +69,7 @@ const classroomDataMiddleware = (store) => (next) => (action) => {
             if(response.data.courseWork === undefined) {
               dispatch(hasCourseWorks(false))
             } else {
+              dispatch(resetSubmissions())
               dispatch(courseworksRetrieved(response.data.courseWork))
               dispatch(hasCourseWorks(true))
               next(action)

@@ -1,14 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import { courseworksRetrieved, courseSelected } from '../actions/actionCreators'
+import { courseSelected } from '../actions/actionCreators'
 
 
 class CourseWorksFilter extends React.Component {
 
   render() {
       return(
-         <button onClick={() => this.props.courseSelected(this.props.courseId)}>See only this course works</button>
+         <button onClick={() => this.props.courseSelected(this.props.courseId)}>Load course this works</button>
        )
   }
 }
@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    courseworksRetrieved: courseworksRetrieved,
+    //courseworksRetrieved: courseworksRetrieved,
     courseSelected: courseSelected
   }, dispatch)
 }

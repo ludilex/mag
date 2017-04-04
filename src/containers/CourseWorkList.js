@@ -14,7 +14,7 @@ class CourseWorkList extends React.Component {
     if(this.props.hasCourseWorks) {
       return (
               <div>
-                  <h3>Course Works of {this.getSelectedCourseName()}</h3>
+                  <h4>Course Works of {this.getSelectedCourseName()}</h4>
                   {this.props.courseWorksList.map(this.renderCourseWork)}
               </div>
           )

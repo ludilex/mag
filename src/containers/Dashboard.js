@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux'
 import Profile from '../components/Profile'
 import CoursesList from '../containers/CoursesList'
 import CourseWorkList from '../containers/CourseWorkList'
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Col } from 'react-bootstrap';
 
 class Dashboard extends React.Component {
   componentWillUnmount() {
@@ -14,7 +14,6 @@ class Dashboard extends React.Component {
     return (
 
       <Grid>
-        <Row><h1>Magelungen Spel</h1></Row>
         <Col xs={12} md={3}>
           <Profile profileData={this.props.profile} />
           <CoursesList />

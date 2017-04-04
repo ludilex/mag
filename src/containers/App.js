@@ -1,11 +1,12 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import {
   BrowserRouter as Router,
   Route,
   Redirect
 } from 'react-router-dom'
+import { PageHeader } from 'react-bootstrap';
 
 import Dashboard from './Dashboard'
 
@@ -32,6 +33,7 @@ class App extends React.Component {
     return (
       <Router>
         <div>
+          <PageHeader>Magelungen <small>spel</small></PageHeader>
           <Route exact path="/" render={() => (
             this.props.isLogged ? (
               <Redirect to="/dashboard" />
