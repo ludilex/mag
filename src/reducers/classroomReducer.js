@@ -15,8 +15,7 @@ export default function classroomReducer(state={}, action) {
 
     case 'COURSE_WORKS_RETRIEVED':
       return Object.assign({}, state, {
-        courseWorksList: state.courseWorksList.concat(action.payload),
-        hasCourseWorks: true
+        courseWorksList: action.payload
       })
 
     case 'COURSE_WORKS_LOADED':
@@ -24,6 +23,11 @@ export default function classroomReducer(state={}, action) {
         hasCourseWorks: action.payload
       })
 
+    case 'RESET_SUBMISSIONS':
+      return Object.assign({}, state, {
+        studentSubmissions: []
+      })
+      
     case 'SUBMISSIONS_RETRIEVED':
       return Object.assign({}, state, {
         studentSubmissions: state.studentSubmissions.concat(action.payload)
@@ -34,9 +38,9 @@ export default function classroomReducer(state={}, action) {
         hasSubmissions: action.payload
       })
 
-    case 'HAS_COURSEWORKS':
+    case 'HAS_COURSE_WORKS':
       return Object.assign({}, state, {
-        hasCourseWorks: true
+        hasCourseWorks: action.payload
       })
 
     case 'COURSE_SELECTED':

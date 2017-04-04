@@ -1,50 +1,53 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import { Grid, Row, Col } from 'react-bootstrap';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect
+} from 'react-router-dom'
 
-/* Components */
-import Profile from '../components/Profile'
+import Dashboard from './Dashboard'
 
 /* Actions */
-import { hasLogged, gotAccessToken } from '../actions/actionCreators'
+import {
+  gotAccessToken,
+  accessGranted,
+  changeLoginStatus
+ } from '../actions/actionCreators'
 
-/* Containers */
-import CoursesList from './CoursesList'
 import LoginButton from './LoginButton'
-import CourseWorkList from '../containers/CourseWorkList'
+
 
 class App extends React.Component {
-  shouldComponentUpdate(){
-    return true
-  }
-  render() {
+  componentWillMount() {
+
     if(this.props.isLogged) {
-      return(
-        <div>
-          <Grid>
-            <Row>
-              <div><h2>Magelungen spel</h2></div>
-            </Row>
-          </Grid>
-          <Grid>
-            <Col xs={12} md={3}>
-              <Profile profileData={this.props.profile} />
-              <CoursesList />
-            </Col>
-            <Col xs={12} md={9}>
-              <CourseWorkList />
-            </Col>
-          </Grid>
-        </div>
-
-      )
-    } else {
-        return (
-          <LoginButton />
-        )
+      this.props.accessGranted()
     }
+  }
 
+  render() {
+
+    return (
+      <Router>
+        <div>
+          <Route exact path="/" render={() => (
+            this.props.isLogged ? (
+              <Redirect to="/dashboard" />
+            ) : (
+              <LoginButton />)
+          )} />
+
+          <Route exact path="/dashboard" render={() => (
+            this.props.isLogged ? (
+              <Dashboard />
+            ) : (
+              <Redirect to="/" />)
+          )} />
+        </div>
+      </Router>
+    )
   }
 }
 
@@ -61,8 +64,9 @@ const mapStateToProps = (state) => {
 //Tells which actions would be dispatched in this component
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    hasLogged: hasLogged,
-    gotAccessToken: gotAccessToken
+    changeLoginStatus: changeLoginStatus,
+    gotAccessToken: gotAccessToken,
+    accessGranted: accessGranted
   }, dispatch)
 }
 

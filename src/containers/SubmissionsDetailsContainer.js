@@ -8,6 +8,9 @@ import SubmissionDetails from '../components/SubmissionDetails'
 
 
 class SubmissionsDetailsContainer extends React.Component {
+  _success() {
+    return true
+  }
   render() {
     var submissions = {}
     const axiosInstance = axios.create({
@@ -20,7 +23,7 @@ class SubmissionsDetailsContainer extends React.Component {
 
     return(
       <AxiosProvider instance={axiosInstance}>
-        <Get url={ url } onSuccess={() => this.props.submissionsRetrieved(submissions)}>
+        <Get url={ url } onSuccess={this._sucess}>
            {(error, response, isLoading) => {
              if(error) {
                return (<div>Something bad happened: {error.message}</div>)

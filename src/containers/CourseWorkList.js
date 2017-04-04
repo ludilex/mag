@@ -5,12 +5,23 @@ import {bindActionCreators} from 'redux'
 import CourseWork from '../components/CourseWork'
 
 
-
-
 class CourseWorkList extends React.Component {
-
+  getSelectedCourseName () {
+    const courseName = this.props.coursesList.filter((course) =>  {return course.id === this.props.currentCourseSelected})[0].name;
+    return courseName
+  }
   render() {
-    return <div>{this.props.courseWorksList.map(this.renderCourseWork)}</div>
+    if(this.props.hasCourseWorks) {
+      return (
+              <div>
+                  <h3>Course Works of {this.getSelectedCourseName()}</h3>
+                  {this.props.courseWorksList.map(this.renderCourseWork)}
+              </div>
+          )
+    } else {
+      return <div>This course doesn't have course works yet.</div>
+    }
+
   }
   renderCourseWork(courseWork) {
     //avoid iteration if the course doesn't have courseWorks
@@ -23,6 +34,7 @@ class CourseWorkList extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    coursesList: state.classroomReducer.coursesList,
     hasCourseWorks: state.classroomReducer.hasCourseWorks,
     courseWorksList: state.classroomReducer.courseWorksList,
     currentCourseSelected: state.classroomReducer.currentCourseSelected

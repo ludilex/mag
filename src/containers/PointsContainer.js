@@ -2,7 +2,7 @@ import React from 'react'
 //import { Col } from 'react-bootstrap';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import { globalPointsCalculated } from '../actions/actionCreators'
+import { resetPoints, globalPointsCalculated } from '../actions/actionCreators'
 import Points from '../components/Points'
 
 
@@ -10,19 +10,25 @@ import Points from '../components/Points'
 
 class PointsContainer extends React.Component {
 
-  componentDidUpdate() {
+  componentWillMount() {
+  }
 
-    var points = 0
-      this.props.studentSubmissions.map((submission) => {
-        //Validate if the submission has been aproved and graded.
-        if(submission !== undefined) {
-          if(submission.assignedGrade !== undefined && submission.state === 'RETURNED') {
-            //console.log(submission.state);
-            points += submission.assignedGrade
+  componentDidMount() {
+    if(this.props.hasSubmissions) {
+      var points = 0
+        this.props.studentSubmissions.map((submission) => {
+          //Validate if the submission has been aproved and graded.
+          if(submission !== undefined) {
+            if(submission.assignedGrade !== undefined && submission.state === 'RETURNED') {
+              //console.log(submission.state);
+              points += submission.assignedGrade
+            }
           }
-        }
-      })
-      this.props.globalPointsCalculated(points)
+          return true
+        })
+        this.props.globalPointsCalculated(points)
+    }
+
   }
 
   render() {
@@ -41,6 +47,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
+    resetPoints: resetPoints,
     globalPointsCalculated: globalPointsCalculated
   }, dispatch)
 }

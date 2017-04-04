@@ -7,13 +7,32 @@ export const isLogged = (boolean) => {
   }
 }
 
-export const accessGranted = (response) => {
-  //save accessToken in localStorage to reuse it in API calls
-  localStorage.setItem("accessToken", response.accessToken);
+export const loginDataSaved = (response) => {
+  
   return {
-    type: actionTypes.ACCESS_GRANTED,
+    type: actionTypes.LOGIN_DATA_SAVED,
     payload: response,
     accessToken: response.accessToken
+  }
+}
+
+export const accessGranted = () => {
+
+  return {
+    type: actionTypes.ACCESS_GRANTED
+  }
+}
+
+export const changeLoginStatus = (boolean) => {
+  return {
+    type: actionTypes.CHANGE_LOGIN_STATUS,
+    payload: boolean
+  }
+}
+
+export const logout = () => {
+  return {
+    type: actionTypes.LOGOUT
   }
 }
 
@@ -48,8 +67,7 @@ export const courseSelected = (courseId) => {
 export const courseworksRetrieved = (courseWorks) => {
   return {
     type: actionTypes.COURSE_WORKS_RETRIEVED,
-    payload: courseWorks,
-    hasCourseWorks: true
+    payload: courseWorks
   }
 }
 
@@ -57,6 +75,19 @@ export const courseWorksLoaded = (boolean) => {
   return {
     type: actionTypes.COURSE_WORKS_LOADED,
     payload: boolean
+  }
+}
+
+export const hasCourseWorks = (boolean) => {
+  return {
+    type: actionTypes.HAS_COURSE_WORKS,
+    payload: boolean
+  }
+}
+
+export const resetSubmissions = () => {
+  return {
+    type: actionTypes.RESET_SUBMISSIONS
   }
 }
 
@@ -71,6 +102,12 @@ export const submissionsLoaded = (boolean) => {
   return {
     type: actionTypes.SUBMISSIONS_LOADED,
     payload: boolean
+  }
+}
+
+export const resetPoints = () => {
+  return {
+    type: actionTypes.RESET_POINTS
   }
 }
 

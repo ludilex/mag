@@ -5,6 +5,11 @@ export default function gamificationReducer(state={}, action) {
       return Object.assign({}, state, {
         globalPoints: action.payload
       })
+
+    case 'RESET_POINTS':
+      return Object.assign({}, state, {
+        globalPoints: 0
+      })
     default:
       return state
   }
