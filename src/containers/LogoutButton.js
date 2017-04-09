@@ -6,9 +6,10 @@ import { Button } from 'react-bootstrap'
 
 
 class LogoutButton extends React.Component {
+
   render() {
     return (
-      <Button bsStyle="danger" onClick={() => this.props.logout()}>Logout</Button>
+      <Button bsStyle="danger" onClick={() => this.props.logout()}>Logga ut</Button>
     )
   }
 }

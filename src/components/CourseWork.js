@@ -1,5 +1,5 @@
 import React from 'react'
-import { Panel, Col, Label, Button, Row } from 'react-bootstrap';
+import { Panel, Col, Label, Button, Row, Well } from 'react-bootstrap';
 import Badge from './Badge'
 import SubmissionsDetailsContainer from '../containers/SubmissionsDetailsContainer'
 
@@ -92,8 +92,10 @@ class CourseWork extends React.Component {
             />
           </Col>
           <Col xs={12} md={6}>
-            <h5>Your mision: {this.props.courseWork.title}</h5>
-            <p>Mision description: {this.props.courseWork.description}</p>
+            <Well>
+              <h5>Your mision: {this.props.courseWork.title}</h5>
+              <p>Mision description: {this.props.courseWork.description}</p>
+            </Well>
           </Col>
           <Col xs={12} md={3}>
             {<DueDateThumbnail dueDate={this.props.courseWork.dueDate} dueTime={this.props.courseWork.dueTime}/>}

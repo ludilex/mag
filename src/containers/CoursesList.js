@@ -2,27 +2,41 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { courseSelected, courseWorksLoaded } from '../actions/actionCreators'
+import { PanelGroup, Panel } from 'react-bootstrap'
+import Spinner from 'react-spinkit'
 import CourseThumbnail from '../components/CourseThumbnail'
+
 
 class CoursesList extends React.Component {
 
   render() {
-
-    if(this.props.hasCourses === true) {
-      return( <div>{this.props.coursesList.map(this.renderThumbnails)}</div>  )
+    if(this.props.coursesList.length > 0) {
+      return(
+        <PanelGroup defaultActiveKey={this.props.currentCourseSelected} accordion>
+          {
+            this.props.coursesList.map( course => {
+              return (
+                <Panel header={course.name} eventKey={course.id} key={course.id} onClick={()=>{this.props.courseSelected(course.id)}}>
+                  <CourseThumbnail activeKey={this.props.currentCourseSelected} course={course} />
+                </Panel>
+              )
+            })
+          }
+        </PanelGroup>
+      )
+    } else if(this.props.isFetching) {
+        return <Panel><Spinner spinnerName="double-bounce" /></Panel>
     }else {
-      return (<div>Loading ...</div>)
+      return <h3>Du behöver inte ha kurser i Google Classroom</h3>
     }
-  }
-  renderThumbnails(course) {
-    return <CourseThumbnail key={course.id} course={course} />
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    hasCourses: state.classroomReducer.hasCourses,
-    coursesList: state.classroomReducer.coursesList
+    coursesList: state.classroomReducer.coursesList,
+    currentCourseSelected: state.classroomReducer.currentCourseSelected,
+    isFetching: state.uiReducer.isFetching
   }
 }
 

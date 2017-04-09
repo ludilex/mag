@@ -7,27 +7,18 @@ import {
   Redirect
 } from 'react-router-dom'
 import { PageHeader } from 'react-bootstrap';
-
 import Dashboard from './Dashboard'
-
-/* Actions */
-import {
-  gotAccessToken,
-  accessGranted,
-  changeLoginStatus
- } from '../actions/actionCreators'
-
 import LoginButton from './LoginButton'
-
+import { accessGranted } from '../actions/actionCreators'
 
 class App extends React.Component {
-  componentWillMount() {
-
+  componentDidMount() {
     if(this.props.isLogged) {
+      //when user reloads the app, it triggers the course fetching again
       this.props.accessGranted()
     }
   }
-
+  
   render() {
 
     return (
@@ -56,18 +47,13 @@ class App extends React.Component {
 //Tells to this component which props will be used from the state
 const mapStateToProps = (state) => {
   return {
-    profile: state.loginReducer.profile,
     isLogged: state.loginReducer.isLogged,
-    hasCourses: state.classroomReducer.hasCourses,
-    accessToken: state.loginReducer.accessToken
   }
 }
 
 //Tells which actions would be dispatched in this component
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    changeLoginStatus: changeLoginStatus,
-    gotAccessToken: gotAccessToken,
     accessGranted: accessGranted
   }, dispatch)
 }

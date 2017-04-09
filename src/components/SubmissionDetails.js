@@ -5,7 +5,8 @@ import Points from '../components/Points'
 
 class SubmissionDetails extends React.Component {
 
-  render() {
+  render() {    
+    //return <div>:)</div>
     if(this.props.submissions !== undefined) {
       const submissionState = this.props.submissions[0].state
       const assignedGrade = this.props.submissions[0].assignedGrade
@@ -20,8 +21,8 @@ class SubmissionDetails extends React.Component {
       } else {
          return <Badge badgeImg='https://t6.rbxcdn.com/4e2dd1731d4dc6adb7101878e3346a60' />
       }
-    }else {
-      return <Badge badgeImg='https://t6.rbxcdn.com/4e2dd1731d4dc6adb7101878e3346a60' />
+    } else {
+        return <Badge badgeImg='https://t6.rbxcdn.com/4e2dd1731d4dc6adb7101878e3346a60' />
     }
   }
 }

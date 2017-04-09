@@ -6,18 +6,8 @@ import { accessGranted, loginDataSaved, resetSubmissions, resetPoints } from '..
 import { Button } from 'react-bootstrap';
 
 class LoginButton extends React.Component {
-
-  _error(response) {
-    return <div>Unsuccesful login</div>
-  }
-
-  _handleLogin(response) {
-
-  }
-
+  
   componentWillUnmount(){
-    this.props.resetSubmissions()
-    this.props.resetPoints()
     this.props.accessGranted()
   }
 
@@ -33,10 +23,11 @@ class LoginButton extends React.Component {
               https://www.googleapis.com/auth/classroom.coursework.me.readonly
               "
         tag="text"
+        prompt="select_account"
         style={{ color: 'blue' }}
         onSuccess={(response) => this.props.loginDataSaved(response)}
         onFailure={this._error}>
-        <Button bsStyle="primary">Login with Google</Button>
+        <Button bsStyle="primary">Logga in med ditt Google-konto</Button>
       </GoogleLogin>
     )
   }

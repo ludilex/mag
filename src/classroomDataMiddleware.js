@@ -1,15 +1,14 @@
 import axios from 'axios'
 import {
+  changeFetchingStatus,
   changeLoginStatus,
-  coursesRetrieved,
   requestError,
   coursesLoaded,
-  courseworksRetrieved,
-  hasCourseWorks,
-  submissionsRetrieved,
-  courseSelected,
-  //globalPointsCalculated,
-  resetSubmissions
+  courseWorksLoaded,
+  resetCourseSelected,
+  resetCourseWorks,
+  resetSubmissions,    
+  resetPoints
  } from './actions/actionCreators'
 
 
@@ -20,29 +19,30 @@ const classroomDataMiddleware = (store) => (next) => (action) => {
   switch(action.type) {
 
     case 'LOGOUT':
-
+        localStorage.clear()
         store.dispatch(dispatch => {
           dispatch(changeLoginStatus(false))
         })
-        localStorage.clear()
         next(action)
       break
 
     case 'ACCESS_GRANTED':
+      store.dispatch(dispatch => {
+        dispatch(changeFetchingStatus(true))
+      })
       axios({
         method: 'get',
         url: '/v1/courses/',
         headers: {'Authorization': "Bearer " + store.getState().loginReducer.accessToken}
       })
       .then((response) => {
-        //console.log(response.data.courses);
         store.dispatch((dispatch) => {
-          dispatch(coursesRetrieved(response.data.courses))
-          dispatch(coursesLoaded(true))
-          dispatch(courseSelected(response.data.courses[0].id))
-          dispatch(resetSubmissions())
+          dispatch(coursesLoaded(response.data.courses))
+          dispatch(resetCourseSelected())
+          dispatch(changeFetchingStatus(false))
         })
       })
+      .then(next(action))
       .catch((error) => {
         store.dispatch((dispatch) => {
           const errorCode = error.response.data.error.code;
@@ -56,72 +56,53 @@ const classroomDataMiddleware = (store) => (next) => (action) => {
       break
 
     case 'COURSE_SELECTED':
-
         const courseSelectedId = action.payload
-        axios({
-          method: 'get',
-          url: '/v1/courses/' + courseSelectedId + '/courseWork',
-          headers: {'Authorization': "Bearer " + store.getState().loginReducer.accessToken}
-        })
-        .then( response => {
-          store.dispatch((dispatch) => {
-
-            if(response.data.courseWork === undefined) {
-              dispatch(hasCourseWorks(false))
-            } else {
-              dispatch(resetSubmissions())
-              dispatch(courseworksRetrieved(response.data.courseWork))
-              dispatch(hasCourseWorks(true))
-              next(action)
-            }
+        //validate if the user selected the same course to avoid unnesesary reloadings
+        if(courseSelectedId !== store.getState().classroomReducer.currentCourseSelected) {
+          store.dispatch(dispatch => {
+            dispatch(changeFetchingStatus(true))
           })
-        })
-        .catch((error) => {
-          store.dispatch((dispatch) => {
-            const errorCode = error.response.data.error.code;
-            if(errorCode === 401) {
-              console.log("Access Token expired!");
-              dispatch(changeLoginStatus(false))
-              //localStorage.clear()
-            }
-            dispatch(requestError(error.response))
-          })
-        })
-
-      break;
-
-    case 'HAS_COURSE_WORKS':
-      const courseWorks = store.getState().classroomReducer.courseWorksList;
-      courseWorks.map(courseWork => {
           axios({
             method: 'get',
-            url: 'v1/courses/' + courseWork.courseId + "/courseWork/" + courseWork.id + "/studentSubmissions",
+            url: '/v1/courses/' + courseSelectedId + '/courseWork',
             headers: {'Authorization': "Bearer " + store.getState().loginReducer.accessToken}
           })
           .then( response => {
-            if(response.data.studentSubmissions !== undefined) {
-              //var points = response.data.studentSubmissions[0].assignedGrade
-              store.dispatch((dispatch) => {
-                dispatch(submissionsRetrieved(response.data.studentSubmissions[0]))
-                //dispatch(globalPointsCalculated(points))
-                next(action)
-              })
-            }
-          })
-          .catch((error) => {
             store.dispatch((dispatch) => {
-              const errorCode = error.response.data.error.code;
-              if(errorCode === 401) {
-                console.log("Access Token expired!");
-                dispatch(changeLoginStatus(false))
-                //localStorage.clear()
+              dispatch(resetSubmissions())
+              dispatch(resetPoints())
+              dispatch(resetCourseWorks())
+              dispatch(changeFetchingStatus(false))
+              if(response.data.courseWork !== undefined) {
+                dispatch(courseWorksLoaded(response.data.courseWork))
               }
-              dispatch(requestError(error.response))
             })
           })
-          return true
-        })
+          .then ( next(action) )
+        } else {
+          next(action)
+        }
       break;
+
+    /* case 'SUBMISSION_RETRIEVED':
+        store.dispatch(dispatch => {
+          dispatch(submissionsLoaded(action.payload))
+        })
+      break
+
+    case 'SUBMISSIONS_LOADED':
+        if(action.payload !== undefined){
+          const points = action.payload[0].assignedGrade;
+          if(points !== undefined){
+            store.dispatch(dispatch => {
+              dispatch(globalPointsCalculated(points))
+            })
+          }
+        }else {
+          next(action)
+        }
+
+      break;*/
 
     default:
       next(action)

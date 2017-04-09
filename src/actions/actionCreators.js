@@ -8,7 +8,7 @@ export const isLogged = (boolean) => {
 }
 
 export const loginDataSaved = (response) => {
-  
+
   return {
     type: actionTypes.LOGIN_DATA_SAVED,
     payload: response,
@@ -20,6 +20,13 @@ export const accessGranted = () => {
 
   return {
     type: actionTypes.ACCESS_GRANTED
+  }
+}
+
+export const changeFetchingStatus = (boolean) => {
+  return {
+    type: actionTypes.CHANGE_FETCHING_STATUS,
+    payload: boolean
   }
 }
 
@@ -64,6 +71,12 @@ export const courseSelected = (courseId) => {
   }
 }
 
+export const resetCourseSelected = () => {
+  return {
+    type: actionTypes.RESET_COURSE_SELECTED
+  }
+}
+
 export const courseworksRetrieved = (courseWorks) => {
   return {
     type: actionTypes.COURSE_WORKS_RETRIEVED,
@@ -78,10 +91,9 @@ export const courseWorksLoaded = (boolean) => {
   }
 }
 
-export const hasCourseWorks = (boolean) => {
+export const resetCourseWorks = () => {
   return {
-    type: actionTypes.HAS_COURSE_WORKS,
-    payload: boolean
+    type: actionTypes.RESET_COURSE_WORKS
   }
 }
 
@@ -91,17 +103,17 @@ export const resetSubmissions = () => {
   }
 }
 
-export const submissionsRetrieved = (response) => {
+export const submissionRetrieved = (response) => {
   return {
-    type: actionTypes.SUBMISSIONS_RETRIEVED,
+    type: actionTypes.SUBMISSION_RETRIEVED,
     payload: response
   }
 }
 
-export const submissionsLoaded = (boolean) => {
+export const submissionsLoaded = (response) => {
   return {
     type: actionTypes.SUBMISSIONS_LOADED,
-    payload: boolean
+    payload: response
   }
 }
 

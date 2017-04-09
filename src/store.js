@@ -11,12 +11,9 @@ const dataStructure = {
     isLogged: false
   },
   classroomReducer: {
-    hasCourses: false,
     coursesList: [],
-    currentCourseSelected: "all",
-    hasCourseWorks: false,
+    currentCourseSelected: "",
     courseWorksList: [],
-    hasSubmissions: false,
     studentSubmissions: [],
   },
   gamificationReducer: {
@@ -26,15 +23,16 @@ const dataStructure = {
     badgesEarned: []
   },
   uiReducer: {
-    error: {}
+    errors: {},
+    isFetching: false
   }
 }
 
-//localStorage.clear()
+//localStorage.clear() //uncomment to reset app
 var initialState = {}
 const persistedState = loadState();
 
-if(persistedState === undefined) {
+if (persistedState === undefined) {
   initialState = dataStructure
 }else {
   initialState = persistedState
