@@ -6,7 +6,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
-import { PageHeader } from 'react-bootstrap';
+import { PageHeader, Image } from 'react-bootstrap';
 import Dashboard from './Dashboard'
 import LoginButton from './LoginButton'
 import { accessGranted } from '../actions/actionCreators'
@@ -18,13 +18,13 @@ class App extends React.Component {
       this.props.accessGranted()
     }
   }
-  
+
   render() {
 
     return (
       <Router>
         <div>
-          <PageHeader>Magelungen <small>spel</small></PageHeader>
+          <PageHeader className="Header"> <Image src="img/header_logo.png"/>Magelungen <small>spel</small></PageHeader>
           <Route exact path="/" render={() => (
             this.props.isLogged ? (
               <Redirect to="/dashboard" />

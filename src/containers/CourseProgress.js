@@ -1,14 +1,17 @@
 import React from 'react'
-import { ProgressBar, Well } from 'react-bootstrap'
+import { ProgressBar, Panel } from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import { globalPointsCalculated } from '../actions/actionCreators'
 import Points from '../components/Points'
+import CourseName from './SelectedCourseName'
 
 
 class CourseProgress extends React.Component {
 
   render(){
     if(this.props.courseWorksList.length > 0) {
+
       var completed = this.getCompletedAssignments()
       var grades = completed.map(submission => {
         return submission.assignedGrade
@@ -16,15 +19,14 @@ class CourseProgress extends React.Component {
       var points = grades.reduce((a, b) => {return a + b}, 0)
 
       return(
-        <div>
-          <h3><Points value={points} /> poäng</h3>
-          <Well>
-            <h4>Dina framsteg</h4>
+        <Panel header={<h4>Dina framsteg i <CourseName /></h4>}>
+            <h2><Points value={points} /></h2>
+            <h5>Poäng</h5>
+
+            <h4>Klarade uppdrag</h4>
             <ProgressBar bsStyle="info" now={completed.length * 100 / this.props.courseWorksList.length} />
             <h4>{completed.length} / {this.props.courseWorksList.length}</h4>
-          </Well>
-
-        </div>
+        </Panel>
       )
      }else {
        return <div>Inga uppgifter ännu</div>
@@ -58,7 +60,7 @@ const mapStateToProps = (state) => {
 //Tells which actions would be dispatched in this component
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-
+    globalPointsCalculated: globalPointsCalculated
   }, dispatch)
 }
 

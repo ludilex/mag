@@ -5,26 +5,46 @@ import Points from '../components/Points'
 
 class SubmissionDetails extends React.Component {
 
-  render() {    
+  render() {
     //return <div>:)</div>
     if(this.props.submissions !== undefined) {
       const submissionState = this.props.submissions[0].state
       const assignedGrade = this.props.submissions[0].assignedGrade
+      var percentile = assignedGrade * 100 / this.props.maxPoints
+
 
       if(submissionState === 'RETURNED') {
-        return (
-          <div>
-            <Row><Badge badgeImg='http://home.speedlingua.com/wp-content/uploads/2013/11/badge.png'/></Row>
-            <Row>Points obtained: <Points value={assignedGrade}/></Row>
-          </div>
-        )
+        if(percentile > 90) {
+          return (
+            <div>
+              <Row><Badge badgeType='GOLDEN_BADGE'/></Row>
+              <Row><h4><Points value={assignedGrade}/></h4></Row>
+              <Row>Poäng</Row>
+            </div>
+          )
+        } else if(percentile >= 75 && percentile < 90) {
+            return (
+              <div>
+                <Row><Badge badgeType='SILVER_BADGE'/></Row>
+                <Row><h4><Points value={assignedGrade}/></h4></Row>
+                <Row>Poäng</Row>
+              </div>
+            )
+        } else if(percentile < 75) {
+            return (
+              <div>
+                <Row><Badge badgeType='BRONZE_BADGE'/></Row>
+                <Row><h4><Points value={assignedGrade}/></h4></Row>
+                <Row>Poäng</Row>
+              </div>
+            )
+        }
       } else {
-         return <Badge badgeImg='https://t6.rbxcdn.com/4e2dd1731d4dc6adb7101878e3346a60' />
+          return <Badge badgeType='LOCKED_BADGE' />
       }
     } else {
-        return <Badge badgeImg='https://t6.rbxcdn.com/4e2dd1731d4dc6adb7101878e3346a60' />
+        return <Badge badgeType='LOCKED_BADGE' />
     }
   }
 }
-
 export default SubmissionDetails

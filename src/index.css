@@ -3,6 +3,16 @@ body {
   text-align: center;
 }
 
+.Header img{
+  width: 50px;
+  margin-right: 20px;
+}
+
 .Profile {
-  
+
+}
+
+.CalendarHeader .panel-heading {
+  color: #FFFFFF;
+  background-color: #d65050;
 }

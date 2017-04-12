@@ -25,20 +25,25 @@ class SubmissionsDetailsContainer extends React.Component {
     })
 
     var url = "v1/courses/" + this.props.courseId + "/courseWork/" + this.props.courseWorkId + "/studentSubmissions"
-    
+
     return(
         <AxiosProvider instance={axiosInstance}>
           <Get url={ url } onSuccess={(response) => this.props.submissionsLoaded(response.data.studentSubmissions)}>
              {(error, response, isLoading) => {
                if(error) {
-                 return (<div>Something bad happened: {error.message}</div>)
+                 const errorCode = error.response.data.error.code;
+                 if(errorCode === 401) {
+                   console.log("Access Token expired!");
+                   this.props.changeLoginStatus(false)
+                   console.log(error);
+                 }
                }
                else if(isLoading) {
                  return (<div><Spinner spinnerName="double-bounce" /></div>)
                }
                else if(response !== null) {
                  //console.log(response);
-                 return <div><SubmissionDetails submissions={response.data.studentSubmissions}/></div>
+                 return <div><SubmissionDetails submissions={response.data.studentSubmissions} maxPoints={this.props.maxPoints}/></div>
                }
                return (<div>Default message before request is made.</div>)
              }}

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Panel, Col, Label, Button, Row, Well } from 'react-bootstrap';
-import Badge from './Badge'
 import SubmissionsDetailsContainer from '../containers/SubmissionsDetailsContainer'
 
 const calendalizer = (monthNumber) => {
@@ -61,45 +60,53 @@ const DueDateThumbnail = (props) => {
 
     if(props.dueDate !== undefined) {
       return (
-        <Panel header="Förfallodatum">
+        <Panel header="Förfallodatum" className="CalendarHeader">
           <h5>{calendalizer(props.dueDate.month)}</h5>
           <h2>{props.dueDate.day}</h2>
           <h4><Label>{timeConstructor(props.dueTime)}</Label></h4>
         </Panel>
       )
     } else {
-        return <Panel><h5>Ingen förfallodatum</h5></Panel>
+        return <Panel><h5>Inget förfallodatum</h5></Panel>
     }
+}
 
-
+const MissionDetector = (props) => {
+  if(props.workType === 'ASSIGNMENT' && props.dueDate === undefined){
+    return <text>Utmaning</text>
+  }else if(props.workType === 'ASSIGNMENT') {
+    return <text>Uppdrag</text>
+  }else if(props.workType === 'MULTIPLE_CHOICE_QUESTION') {
+    return <text>Trivia</text>
+  }else if(props.workType === 'SHORT_ANSWER_QUESTION') {
+    return <text>Kort trivia</text>
+  }
 }
 
 class CourseWork extends React.Component {
-  renderDate() {
 
-  }
   render() {
 
     return(
 
-      <Panel header={<div>{this.props.courseWork.workType} <text>Points to get: <Label>{this.props.courseWork.maxPoints}</Label></text></div>}>
+      <Panel header={<MissionDetector workType={this.props.courseWork.workType} dueDate={this.props.courseWork.dueDate}/>}>
         <Row>
           <Col xs={12} md={3}>
-            <Badge />
-            <SubmissionsDetailsContainer
-              courseId={this.props.courseWork.courseId}
-              courseWorkId={this.props.courseWork.id}
-            />
+            <Panel onClick={() => alert("clicked")}>
+              <SubmissionsDetailsContainer
+                courseId={this.props.courseWork.courseId}
+                courseWorkId={this.props.courseWork.id}
+                maxPoints={this.props.courseWork.maxPoints}
+              />
+            </Panel>
           </Col>
           <Col xs={12} md={6}>
-            <Well>
-              <h5>Your mision: {this.props.courseWork.title}</h5>
-              <p>Mision description: {this.props.courseWork.description}</p>
-            </Well>
+            <Well>{this.props.courseWork.title}</Well>
+            <Well>{this.props.courseWork.description}</Well>
           </Col>
           <Col xs={12} md={3}>
             {<DueDateThumbnail dueDate={this.props.courseWork.dueDate} dueTime={this.props.courseWork.dueTime}/>}
-            <a href={this.props.courseWork.alternateLink} target="_blank"><Button bsStyle="success">Go to the mission!</Button></a>
+            <a href={this.props.courseWork.alternateLink} target="_blank"><Button bsStyle="success">Gå till uppdraget!</Button></a>
           </Col>
         </Row>
 

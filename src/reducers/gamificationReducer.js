@@ -4,7 +4,7 @@ export default function gamificationReducer(state={}, action) {
     case 'GLOBAL_POINTS_CALCULATED':
 
       return Object.assign({}, state, {
-        globalPoints: state.globalPoints += action.payload
+        globalPoints: action.payload
       })
 
     case 'RESET_POINTS':

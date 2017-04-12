@@ -6,6 +6,7 @@ import CourseWork from '../components/CourseWork'
 import { courseSelected } from '../actions/actionCreators'
 import Spinner from 'react-spinkit'
 import CourseProgress from './CourseProgress'
+import CourseName from './SelectedCourseName'
 
 class CourseWorkList extends React.Component {
   componentWillMount() {
@@ -14,24 +15,17 @@ class CourseWorkList extends React.Component {
     }
   }
 
-  getSelectedCourseName () {
-    const courseName = this.props.coursesList.filter((course) =>  {
-      return course.id === this.props.currentCourseSelected
-    })
-    return courseName[0].name;
-  }
-
   render() {
     if(this.props.courseWorksList.length > 0 && this.props.currentCourseSelected !== "") {
       return (
             <div>
               <CourseProgress />
-              <h4>Beskickningar av {this.getSelectedCourseName()}</h4>
+              <h4>Dina uppdrag</h4>
               {this.props.courseWorksList.map(this.renderCourseWork)}
             </div>
           )
     } else if(this.props.currentCourseSelected !== "") {
-        return <div><h4>{this.getSelectedCourseName()} inte har uppdrag ännu</h4></div>
+        return <div><h4><CourseName /> har inga uppdrag ännu</h4></div>
     } else if(this.props.isFetching) {
         return <Spinner spinnerName="double-bounce" />
     }else {
