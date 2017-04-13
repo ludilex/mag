@@ -1,6 +1,4 @@
 import React from 'react'
-import { Image } from 'react-bootstrap';
-
 
 const GOLDEN_BADGE = "img/badge_gold.png"
 const SILVER_BADGE = "img/badge_silver.png"
@@ -27,10 +25,10 @@ class Badge extends React.Component {
           return false
     }
     return(
-      <Image
+      <img
         src={url}
         alt={this.props.badgeName}
-        style={{width: "80px"}}/>
+        style={{width: "100px"}}/>
     )
   }
 }

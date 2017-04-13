@@ -8,16 +8,22 @@ import CourseThumbnail from '../components/CourseThumbnail'
 
 
 class CoursesList extends React.Component {
-
+  isSelected(courseId) {
+    if(courseId === this.props.currentCourseSelected) {
+      return "SelectedCourse"
+    }else {
+      return "Course"
+    }
+  }
   render() {
     if(this.props.coursesList.length > 0) {
       return(
-        <PanelGroup defaultActiveKey={this.props.currentCourseSelected} accordion>
+        <PanelGroup activeKey={this.props.currentCourseSelected} accordion>
           {
             this.props.coursesList.map( course => {
               return (
-                <Panel header={course.name} eventKey={course.id} key={course.id} onClick={()=>{this.props.courseSelected(course.id)}}>
-                  <CourseThumbnail activeKey={this.props.currentCourseSelected} course={course} />
+                <Panel header={course.name} eventKey={course.id} key={course.id} onClick={()=>{this.props.courseSelected(course.id)}} className={this.isSelected(course.id)}>
+                  <CourseThumbnail course={course} />
                 </Panel>
               )
             })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProgressBar, Panel } from 'react-bootstrap'
+import { ProgressBar, Panel, Col, Image } from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { globalPointsCalculated } from '../actions/actionCreators'
@@ -19,14 +19,23 @@ class CourseProgress extends React.Component {
       var points = grades.reduce((a, b) => {return a + b}, 0)
 
       return(
-        <Panel header={<h4>Dina framsteg i <CourseName /></h4>}>
-            <h2><Points value={points} /></h2>
-            <h5>Poäng</h5>
+        <div className="Progress-section">
+          <Panel header={<h4>Dina framsteg i <CourseName /></h4>}>
+              <Col xs={6} md={4}>
+                <h1><Points value={points} /></h1>
+                <h4>Poäng</h4>
+              </Col>
+              <Col xs={6} md={4}>
+                <h4>Klarade uppdrag</h4>
+                <ProgressBar bsStyle="info" now={completed.length * 100 / this.props.courseWorksList.length} />
+                <h4>{completed.length} / {this.props.courseWorksList.length}</h4>
+              </Col>
+              <Col>
+                <Image src="img/google_classroom.png" style={{width: "100px"}}/>
+              </Col>
+          </Panel>
+        </div>
 
-            <h4>Klarade uppdrag</h4>
-            <ProgressBar bsStyle="info" now={completed.length * 100 / this.props.courseWorksList.length} />
-            <h4>{completed.length} / {this.props.courseWorksList.length}</h4>
-        </Panel>
       )
      }else {
        return <div>Inga uppgifter ännu</div>

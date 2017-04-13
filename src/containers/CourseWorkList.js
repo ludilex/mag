@@ -19,8 +19,7 @@ class CourseWorkList extends React.Component {
     if(this.props.courseWorksList.length > 0 && this.props.currentCourseSelected !== "") {
       return (
             <div>
-              <CourseProgress />
-              <h4>Dina uppdrag</h4>
+              <CourseProgress />              
               {this.props.courseWorksList.map(this.renderCourseWork)}
             </div>
           )
