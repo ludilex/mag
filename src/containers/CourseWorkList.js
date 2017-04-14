@@ -19,7 +19,7 @@ class CourseWorkList extends React.Component {
     if(this.props.courseWorksList.length > 0 && this.props.currentCourseSelected !== "") {
       return (
             <div>
-              <CourseProgress />              
+              <CourseProgress />
               {this.props.courseWorksList.map(this.renderCourseWork)}
             </div>
           )
@@ -27,14 +27,15 @@ class CourseWorkList extends React.Component {
         return <div><h4><CourseName /> har inga uppdrag ännu</h4></div>
     } else if(this.props.isFetching) {
         return <Spinner spinnerName="double-bounce" />
-    }else {
+    } else if(this.props.courseWorksList.length !== 0){
       return <div><h4>Välj en kurs</h4></div>
+    }else {
+      return <div></div>
     }
-
   }
   renderCourseWork(courseWork) {
     //avoid iteration if the course doesn't have courseWorks
-    if(courseWork != null) {
+    if(courseWork !== null) {
       return <CourseWork key={courseWork.id} courseWork={courseWork} />
     }
   }

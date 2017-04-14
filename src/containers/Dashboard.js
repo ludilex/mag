@@ -15,7 +15,7 @@ import {
 
 class Dashboard extends React.Component {
 
-  componentWillMount(){    
+  componentWillMount(){
     this.props.resetCourseWorks()
     this.props.resetSubmissions()
     this.props.resetPoints()

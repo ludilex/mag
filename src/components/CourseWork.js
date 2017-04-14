@@ -77,9 +77,9 @@ const missionDetector = (workType, dueDate) => {
   }else if(workType === 'ASSIGNMENT') {
     return "Uppdrag"
   }else if(workType === 'MULTIPLE_CHOICE_QUESTION') {
-    return "Trivia"
+    return "Extra"
   }else if(workType === 'SHORT_ANSWER_QUESTION') {
-    return "Kort-trivia"
+    return "Kort-extra"
   }
 }
 
@@ -101,7 +101,7 @@ class CourseWork extends React.Component {
             </Col>
             <Col xs={12} md={6}>
               <Well>{this.props.courseWork.title}</Well>
-              <h5>Poäng för att få:  <Label>{this.props.courseWork.maxPoints}</Label></h5>              
+              <h5>Poäng att få:  <Label>{this.props.courseWork.maxPoints}</Label></h5>
             </Col>
             <Col xs={12} md={3}>
               {<DueDateThumbnail dueDate={this.props.courseWork.dueDate} dueTime={this.props.courseWork.dueTime}/>}

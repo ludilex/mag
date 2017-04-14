@@ -3,10 +3,38 @@ body {
   text-align: center;
 }
 
+.panel-default>.panel-heading {
+  border-color: #696D7D;
+}
+.panel {
+  border-radius: 15px;
+  border-color: #696D7D;
+}
+.panel-heading {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-color: #696D7D;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+.well {
+  border-radius: 15px;
+}
 
 .Header img{
   width: 50px;
   margin-right: 20px;
+}
+
+.Course .panel-heading {
+  cursor: pointer;
+  text-shadow: none;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
 .Course .panel-heading:hover{
@@ -15,12 +43,15 @@ body {
   cursor: pointer;
 }
 
-.SelectedCourse .panel-heading {
+.selected-course .panel-heading {
   background-color: #95cb6e;
   color: #FFFFFF;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+
 }
 
-.SelectedCourse a:hover {
+.selected-course a:hover {
   text-decoration: none;
 }
 
@@ -35,28 +66,22 @@ body {
 }
 
 .Uppdrag .panel-heading{
-  background-color: #2274A5;
+  background-color: #84BCDA;
   color: white;
 }
 
-.Trivia .panel-heading{
+.Extra .panel-heading{
   background-color: #E4572E;
   color: white;
 }
 
-.Kort-trivia .panel-heading{
+.Kort-extra .panel-heading{
   background-color: #FAA61A;
   color: white;
 }
 
 .Profile {
 
-}
-
-hr.style-two {
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
 .Calendar .panel-heading {
@@ -76,10 +101,6 @@ hr.style-two {
 .Progress-section .panel-heading {
   background-color: #388e3c;
   color: #FFFFFF;
-}
-
-.Progress-section  {
-
 }
 
 .CourseWork {

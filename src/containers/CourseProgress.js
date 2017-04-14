@@ -26,7 +26,7 @@ class CourseProgress extends React.Component {
                 <h4>Poäng</h4>
               </Col>
               <Col xs={6} md={4}>
-                <h4>Klarade uppdrag</h4>
+                <h5>Klarade uppdrag</h5>
                 <ProgressBar bsStyle="info" now={completed.length * 100 / this.props.courseWorksList.length} />
                 <h4>{completed.length} / {this.props.courseWorksList.length}</h4>
               </Col>

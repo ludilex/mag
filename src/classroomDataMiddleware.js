@@ -7,7 +7,7 @@ import {
   courseWorksLoaded,
   resetCourseSelected,
   resetCourseWorks,
-  resetSubmissions,    
+  resetSubmissions,
   resetPoints
  } from './actions/actionCreators'
 
@@ -45,10 +45,13 @@ const classroomDataMiddleware = (store) => (next) => (action) => {
       .then(next(action))
       .catch((error) => {
         store.dispatch((dispatch) => {
+          dispatch(changeFetchingStatus(false))
           const errorCode = error.response.data.error.code;
           if(errorCode === 401) {
             console.log("Access Token expired!");
             dispatch(changeLoginStatus(false))
+          } else {
+            console.log(error);
           }
           dispatch(requestError(error.response))
         })
