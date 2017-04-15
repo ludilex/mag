@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row } from 'react-bootstrap';
+import { Row, Label } from 'react-bootstrap';
 import Badge from '../components/Badge'
 import Points from '../components/Points'
 
@@ -19,7 +19,7 @@ class SubmissionDetails extends React.Component {
           return (
             <div>
               <Row>
-                <h5>Uppdrag slutfört!</h5>
+                <h5><Label>Uppdrag slutfört!</Label></h5>
                 <Badge badgeType='GOLDEN_BADGE'/>
               </Row>
               <Row><h4><Points value={assignedGrade}/></h4></Row>
@@ -29,7 +29,7 @@ class SubmissionDetails extends React.Component {
         } else if(percentile >= 75 && percentile < 90) {
             return (
               <div>
-                <h5>Uppdrag slutfört!</h5>
+                <h5><Label>Uppdrag slutfört!</Label></h5>
                 <Row><Badge badgeType='SILVER_BADGE'/></Row>
                 <Row><h4><Points value={assignedGrade}/></h4></Row>
                 <Row>Poäng</Row>
@@ -38,7 +38,7 @@ class SubmissionDetails extends React.Component {
         } else if(percentile < 75) {
             return (
               <div>
-                <h5>Uppdrag slutfört!</h5>
+                <h5><Label>Uppdrag slutfört!</Label></h5>
                 <Row><Badge badgeType='BRONZE_BADGE'/></Row>
                 <Row><h4><Points value={assignedGrade}/></h4></Row>
                 <Row>Poäng</Row>

@@ -7,18 +7,18 @@ body {
   border-color: #696D7D;
 }
 .panel {
-  border-radius: 15px;
+  border-radius: 25px;
   border-color: #696D7D;
 }
 .panel-heading {
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
   border-bottom-color: #696D7D;
   text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+    -1px -1px 0 #2C302E,
+    1px -1px 0 #2C302E,
+    -1px 1px 0 #2C302E,
+    1px 1px 0 #2C302E;
 }
 
 .well {
@@ -70,18 +70,18 @@ body {
   color: white;
 }
 
-.Extra .panel-heading{
+.Trivia .panel-heading{
   background-color: #E4572E;
   color: white;
 }
 
-.Kort-extra .panel-heading{
+.Kort-trivia .panel-heading{
   background-color: #FAA61A;
   color: white;
 }
 
-.Profile {
-
+.Profile h5{
+  font-size: 12px;
 }
 
 .Calendar .panel-heading {
@@ -99,10 +99,14 @@ body {
 }
 
 .Progress-section .panel-heading {
-  background-color: #388e3c;
+  background-color: #5cb85c;
   color: #FFFFFF;
 }
 
 .CourseWork {
   margin-bottom: 40px;
+}
+
+.course-name h4, text{
+  color: #ffc107
 }

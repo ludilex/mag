@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-class CourseName extends React.Component  {
+class SelectedCourseName extends React.Component  {
   getSelectedCourseName () {
     const courseName = this.props.coursesList.filter((course) =>  {
       return course.id === this.props.currentCourseSelected
@@ -10,7 +10,7 @@ class CourseName extends React.Component  {
   }
 
   render() {
-    return <text>{this.getSelectedCourseName ()}</text>
+    return <text className="course-name">{this.getSelectedCourseName ()}</text>
   }
 }
 
@@ -22,4 +22,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(CourseName)
+export default connect(mapStateToProps, null)(SelectedCourseName)

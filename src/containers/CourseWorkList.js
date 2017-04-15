@@ -1,19 +1,19 @@
 import React from 'react'
-//import { Col } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import CourseWork from '../components/CourseWork'
 import { courseSelected } from '../actions/actionCreators'
 import Spinner from 'react-spinkit'
 import CourseProgress from './CourseProgress'
-import CourseName from './SelectedCourseName'
+import SelectedCourseName from './SelectedCourseName'
 
 class CourseWorkList extends React.Component {
-  componentWillMount() {
+  /*componentWillMount() {
     if(this.props.courseWorksList.length > 0) {
       this.props.courseSelected(this.props.coursesList[0].id)
     }
-  }
+  }*/
 
   render() {
     if(this.props.courseWorksList.length > 0 && this.props.currentCourseSelected !== "") {
@@ -24,7 +24,7 @@ class CourseWorkList extends React.Component {
             </div>
           )
     } else if(this.props.currentCourseSelected !== "") {
-        return <div><h4><CourseName /> har inga uppdrag ännu</h4></div>
+        return <div className="course-name"><Panel><h4><SelectedCourseName /></h4> <h5>har inga uppdrag ännu</h5></Panel></div>
     } else if(this.props.isFetching) {
         return <Spinner spinnerName="double-bounce" />
     } else if(this.props.courseWorksList.length !== 0){
@@ -33,6 +33,7 @@ class CourseWorkList extends React.Component {
       return <div></div>
     }
   }
+
   renderCourseWork(courseWork) {
     //avoid iteration if the course doesn't have courseWorks
     if(courseWork !== null) {
