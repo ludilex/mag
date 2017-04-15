@@ -10,20 +10,6 @@ import Points from '../components/Points'
 
 class PointsContainer extends React.Component {
 
-  componentDidUpdate() {
-    var points = 0
-
-
-    this.props.studentSubmissions.map((submission) => {
-      //Validate if the submission has been aproved and graded.
-      if(submission.assignedGrade !== undefined && submission.state === 'RETURNED') {
-        //console.log(submission.state);
-        points += submission.assignedGrade
-      }
-    })
-    this.props.globalPointsCalculated(points)
-  }
-
   render() {
     return <Points value={this.props.globalPoints} />
   }
@@ -32,7 +18,6 @@ class PointsContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    studentSubmissions: state.classroomReducer.studentSubmissions,
     globalPoints: state.gamificationReducer.globalPoints,
     coursePoints: state.gamificationReducer.coursePoints
   }

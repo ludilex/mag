@@ -1,3 +1,112 @@
 body {
   font-family: sans-serif;
+  text-align: center;
+}
+
+.panel-default>.panel-heading {
+  border-color: #696D7D;
+}
+.panel {
+  border-radius: 25px;
+  border-color: #696D7D;
+}
+.panel-heading {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-bottom-color: #696D7D;
+  text-shadow:
+    -1px -1px 0 #2C302E,
+    1px -1px 0 #2C302E,
+    -1px 1px 0 #2C302E,
+    1px 1px 0 #2C302E;
+}
+
+.well {
+  border-radius: 15px;
+}
+
+.Header img{
+  width: 50px;
+  margin-right: 20px;
+}
+
+.Course .panel-heading {
+  cursor: pointer;
+  text-shadow: none;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.Course .panel-heading:hover{
+  background-color: #95cb6e;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.selected-course .panel-heading {
+  background-color: #95cb6e;
+  color: #FFFFFF;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+
+}
+
+.selected-course a:hover {
+  text-decoration: none;
+}
+
+.Course a:hover {
+  text-decoration: none;
+}
+
+
+.Utmaning .panel-heading{
+  background-color: #95CB6E;
+  color: white;
+}
+
+.Uppdrag .panel-heading{
+  background-color: #84BCDA;
+  color: white;
+}
+
+.Trivia .panel-heading{
+  background-color: #E4572E;
+  color: white;
+}
+
+.Kort-trivia .panel-heading{
+  background-color: #FAA61A;
+  color: white;
+}
+
+.Profile h5{
+  font-size: 12px;
+}
+
+.Calendar .panel-heading {
+  color: #FFFFFF;
+  background-color: #e4535e;
+}
+
+.Calendar h5, h2{
+   margin-bottom: 5px;
+   margin-top: 5px;
+}
+
+.Progress-section .label {
+  background-color: #5cb85c;
+}
+
+.Progress-section .panel-heading {
+  background-color: #5cb85c;
+  color: #FFFFFF;
+}
+
+.CourseWork {
+  margin-bottom: 40px;
+}
+
+.course-name h4, text{
+  color: #ffc107
 }

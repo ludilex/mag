@@ -2,13 +2,13 @@ import React from 'react'
 import GoogleLogin from 'react-google-login'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { hasLogged } from '../actions/actionCreators'
+import { accessGranted, loginDataSaved, resetSubmissions, resetPoints } from '../actions/actionCreators'
 import { Button } from 'react-bootstrap';
 
-class GoogleLoginContainer extends React.Component {
-
-  _error(response) {
-    return <div>Unsuccesful login</div>
+class LoginButton extends React.Component {
+  
+  componentWillUnmount(){
+    this.props.accessGranted()
   }
 
   render(){
@@ -23,10 +23,11 @@ class GoogleLoginContainer extends React.Component {
               https://www.googleapis.com/auth/classroom.coursework.me.readonly
               "
         tag="text"
+        prompt="select_account"
         style={{ color: 'blue' }}
-        onSuccess={(response) => this.props.hasLogged(response)}
+        onSuccess={(response) => this.props.loginDataSaved(response)}
         onFailure={this._error}>
-        <Button bsStyle="primary">Login with Google</Button>
+        <Button bsStyle="primary">Logga in med ditt Google-konto</Button>
       </GoogleLogin>
     )
   }
@@ -35,8 +36,12 @@ class GoogleLoginContainer extends React.Component {
 //Tells which actions would be dispatched in this component
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    hasLogged: hasLogged
+    loginDataSaved: loginDataSaved,
+    accessGranted: accessGranted,
+    resetSubmissions: resetSubmissions,
+    resetPoints: resetPoints
+
   }, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(GoogleLoginContainer);
+export default connect(null, mapDispatchToProps)(LoginButton);

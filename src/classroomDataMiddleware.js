@@ -1,46 +1,112 @@
 import axios from 'axios'
-import { coursesRetrieved, requestError, courseworksRetrieved } from './actions/actionCreators'
+import {
+  changeFetchingStatus,
+  changeLoginStatus,
+  requestError,
+  coursesLoaded,
+  courseWorksLoaded,
+  resetCourseSelected,
+  resetCourseWorks,
+  resetSubmissions,
+  resetPoints
+ } from './actions/actionCreators'
 
-var accessToken = ''
+
+axios.defaults.baseURL = 'https://classroom.googleapis.com';
+
 const classroomDataMiddleware = (store) => (next) => (action) => {
 
   switch(action.type) {
-    case 'HAS_LOGGED':
-      accessToken = action.payload.accessToken
+
+    case 'LOGOUT':
+        localStorage.clear()
+        store.dispatch(dispatch => {
+          dispatch(changeLoginStatus(false))
+        })
+        next(action)
+      break
+
+    case 'ACCESS_GRANTED':
+      store.dispatch(dispatch => {
+        dispatch(changeFetchingStatus(true))
+      })
       axios({
         method: 'get',
-        headers: { 'Authorization': 'Bearer ' + accessToken },
-        url: 'https://classroom.googleapis.com/v1/courses/'
+        url: '/v1/courses/',
+        headers: {'Authorization': "Bearer " + store.getState().loginReducer.accessToken}
       })
       .then((response) => {
         store.dispatch((dispatch) => {
-          dispatch(coursesRetrieved(response.data.courses))
+          dispatch(coursesLoaded(response.data.courses))
+          dispatch(resetCourseSelected())
+          dispatch(changeFetchingStatus(false))
         })
-        next(action)
       })
+      .then(next(action))
       .catch((error) => {
         store.dispatch((dispatch) => {
-          dispatch(requestError(error))
+          dispatch(changeFetchingStatus(false))
+          const errorCode = error.response.data.error.code;
+          if(errorCode === 401) {
+            console.log("Access Token expired!");
+            dispatch(changeLoginStatus(false))
+          } else {
+            console.log(error);
+          }
+          dispatch(requestError(error.response))
         })
       })
-      break;
+      break
+
     case 'COURSE_SELECTED':
-      console.log(accessToken);
-      axios({
-        method: 'get',
-        header: { 'Authorization': 'Bearer' + accessToken },
-        url: 'https://classroom.googleapis.com/v1/courses/' + action.payload + '/courseWork/'
-      })
-      .then((response) => {
-        store.dispatch((dispatch) => {
-          dispatch(courseworksRetrieved(response))
-        })
-        next(action)
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+        const courseSelectedId = action.payload
+        //validate if the user selected the same course to avoid unnesesary reloadings
+        if(courseSelectedId !== store.getState().classroomReducer.currentCourseSelected) {
+          store.dispatch(dispatch => {
+            dispatch(changeFetchingStatus(true))
+          })
+          axios({
+            method: 'get',
+            url: '/v1/courses/' + courseSelectedId + '/courseWork',
+            headers: {'Authorization': "Bearer " + store.getState().loginReducer.accessToken}
+          })
+          .then( response => {
+            store.dispatch((dispatch) => {
+              dispatch(resetSubmissions())
+              dispatch(resetPoints())
+              dispatch(resetCourseWorks())
+              dispatch(changeFetchingStatus(false))
+              if(response.data.courseWork !== undefined) {
+                dispatch(courseWorksLoaded(response.data.courseWork))
+              }
+            })
+          })
+          .then ( next(action) )
+        } else {
+          next(action)
+        }
       break;
+
+    /* case 'SUBMISSION_RETRIEVED':
+        store.dispatch(dispatch => {
+          dispatch(submissionsLoaded(action.payload))
+        })
+      break
+
+    case 'SUBMISSIONS_LOADED':
+        if(action.payload !== undefined){
+          const points = action.payload[0].assignedGrade;
+          if(points !== undefined){
+            store.dispatch(dispatch => {
+              dispatch(globalPointsCalculated(points))
+            })
+          }
+        }else {
+          next(action)
+        }
+
+      break;*/
+
     default:
       next(action)
   }

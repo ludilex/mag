@@ -1,29 +1,43 @@
 import React from 'react'
-//import { Col } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import CourseWork from '../components/CourseWork'
-
-
-
+import { courseSelected } from '../actions/actionCreators'
+import Spinner from 'react-spinkit'
+import CourseProgress from './CourseProgress'
+import SelectedCourseName from './SelectedCourseName'
 
 class CourseWorkList extends React.Component {
+  /*componentWillMount() {
+    if(this.props.courseWorksList.length > 0) {
+      this.props.courseSelected(this.props.coursesList[0].id)
+    }
+  }*/
 
-  renderCourseWork(courseWork) {
-
-    if(courseWork != null) { //avoid iteration if the course doesn't have courseWorks
-      return <CourseWork key={courseWork.id} courseWork={courseWork} />
+  render() {
+    if(this.props.courseWorksList.length > 0 && this.props.currentCourseSelected !== "") {
+      return (
+            <div>
+              <CourseProgress />
+              {this.props.courseWorksList.map(this.renderCourseWork)}
+            </div>
+          )
+    } else if(this.props.currentCourseSelected !== "") {
+        return <div className="course-name"><Panel><h4><SelectedCourseName /></h4> <h5>har inga uppdrag ännu</h5></Panel></div>
+    } else if(this.props.isFetching) {
+        return <Spinner spinnerName="double-bounce" />
+    } else if(this.props.courseWorksList.length !== 0){
+      return <div><h4>Välj en kurs</h4></div>
+    }else {
+      return <div></div>
     }
   }
 
-  render() {
-    
-    if(this.props.hasCourseWorks) {
-      return(
-        <div>{this.props.courseWorksList.map(this.renderCourseWork)}</div>
-      )
-    }else {
-      return(<div>Loading...</div>)
+  renderCourseWork(courseWork) {
+    //avoid iteration if the course doesn't have courseWorks
+    if(courseWork !== null) {
+      return <CourseWork key={courseWork.id} courseWork={courseWork} />
     }
   }
 
@@ -31,15 +45,16 @@ class CourseWorkList extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    hasCourseWorks: state.classroomReducer.hasCourseWorks,
+    coursesList: state.classroomReducer.coursesList,
     courseWorksList: state.classroomReducer.courseWorksList,
-    currentCourseSelected: state.classroomReducer.currentCourseSelected
+    currentCourseSelected: state.classroomReducer.currentCourseSelected,
+    isFetching: state.uiReducer.isFetching
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-
+    courseSelected: courseSelected
   }, dispatch)
 }
 
